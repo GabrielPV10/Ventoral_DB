@@ -1,10 +1,12 @@
 import express from 'express';
+import cors from 'cors';
 import productosRouter from './routes/productos.routes.js';
 import clientesRouter from './routes/clientes.routes.js'; // <--- 1. NUEVO: Importar rutas de clientes
 
 const app = express();
 
 // Middlewares
+app.use(cors());
 app.use(express.json());
 
 // Rutas

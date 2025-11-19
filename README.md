@@ -42,4 +42,22 @@ Si todo es correcto, verá en la terminal: Conectado a MySQL API escuchando en h
 Endpoints de Prueba
 Verificación de estado: GET http://localhost:3000/
 
-Listar productos: GET http://localhost:3000/api/productos
+## Documentación de la API (Endpoints)
+
+### 🛒 Productos
+| Método | Endpoint | Descripción |
+| :--- | :--- | :--- |
+| `GET` | `/api/productos` | Obtiene la lista completa de productos y servicios. |
+| `GET` | `/api/productos/:id` | Obtiene los detalles de un producto específico. |
+| `POST` | `/api/productos` | Crea un nuevo producto (Requiere JSON en el cuerpo). |
+| `PATCH` | `/api/productos/:id` | Actualiza datos de un producto (precio, stock, etc). |
+| `DELETE`| `/api/productos/:id` | Elimina un producto de la base de datos. |
+
+### 👥 Clientes
+| Método | Endpoint | Descripción |
+| :--- | :--- | :--- |
+| `GET` | `/api/clientes` | Lista todos los clientes registrados. |
+| `GET` | `/api/clientes/:id` | Busca un cliente por su ID. |
+| `POST` | `/api/clientes` | Registra un nuevo cliente. |
+| `PATCH` | `/api/clientes/:id` | Actualiza la información del cliente. |
+| `DELETE`| `/api/clientes/:id` | Elimina un cliente del sistema. |

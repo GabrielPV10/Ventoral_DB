@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clientes - Ventoral</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 900px; margin: 0 auto; }
+        h1 { color: #2c3e50; }
+        
+        /* Estilos del Formulario */
+        .form-container { background: #f4f4f4; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ddd; border-radius: 4px; }
+        button { padding: 10px 20px; background: #27ae60; color: white; border: none; cursor: pointer; border-radius: 4px; }
+        button:hover { background: #219150; }
+        
+        /* Estilos de la Tabla */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #2c3e50; color: white; }
+        .btn-delete { background: #c0392b; padding: 5px 10px; font-size: 0.9em; }
+        .btn-edit { background: #f39c12; padding: 5px 10px; font-size: 0.9em; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+    <h1>👥 Gestión de Clientes (CRUD)</h1>
+
+    <div class="form-container">
+        <h3 id="form-title">Registrar Nuevo Cliente</h3>
+        <form id="clienteForm">
+            <input type="hidden" id="clienteId"> <div class="form-group">
+                <label>Nombre Completo:</label>
+                <input type="text" id="nombre" required placeholder="Ej: Juan Pérez">
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" id="email" required placeholder="juan@ejemplo.com">
+            </div>
+            <div class="form-group">
+                <label>Contraseña:</label>
+                <input type="password" id="password" required placeholder="******">
+            </div>
+            <div class="form-group">
+                <label>Teléfono:</label>
+                <input type="text" id="telefono" placeholder="+52 999 999 9999">
+            </div>
+            <div class="form-group">
+                <label>Dirección:</label>
+                <input type="text" id="direccion" placeholder="Calle, Número, Colonia">
+            </div>
+
+            <button type="submit" id="btn-guardar">Guardar Cliente</button>
+            <button type="button" id="btn-cancelar" style="background: #95a5a6; display: none;">Cancelar</button>
+        </form>
+    </div>
+
+    <h3>Lista de Clientes</h3>
+    <table id="clientesTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            </tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
