@@ -1,5 +1,6 @@
 import express from 'express';
-import productosRouter from './routes/productos.routes.js'; // Importamos rutas
+import productosRouter from './routes/productos.routes.js';
+import clientesRouter from './routes/clientes.routes.js'; // <--- 1. NUEVO: Importar rutas de clientes
 
 const app = express();
 
@@ -8,6 +9,9 @@ app.use(express.json());
 
 // Rutas
 app.get('/', (req, res) => res.json({ message: 'API de Ventoral funcionando' }));
-app.use('/api/productos', productosRouter); // Usamos las rutas de productos
+
+// Definir los endpoints
+app.use('/api/productos', productosRouter);
+app.use('/api/clientes', clientesRouter); // <--- 2. NUEVO: Usar rutas de clientes
 
 export default app;
