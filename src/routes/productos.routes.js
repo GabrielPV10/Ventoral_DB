@@ -1,13 +1,30 @@
 import { Router } from 'express';
-// (Aquí importarías tus funciones del controlador)
+// Importamos las funciones del controlador que creamos
+import { 
+    getProductos, 
+    getProducto, 
+    createProducto, 
+    updateProducto, 
+    deleteProducto 
+} from '../controllers/productos.controller.js';
 
 const router = Router();
 
-// Ruta de prueba (después la cambiarás por el CRUD completo)
-router.get('/', (req, res) => {
-  res.json({ message: 'Estás en productos' });
-});
+// Definir las rutas (Endpoints)
 
-// (Aquí va el resto del CRUD: router.post, router.patch, etc.)
+// GET /api/productos -> Obtener todos
+router.get('/', getProductos);
+
+// GET /api/productos/:id -> Obtener uno solo
+router.get('/:id', getProducto);
+
+// POST /api/productos -> Crear nuevo
+router.post('/', createProducto);
+
+// PATCH /api/productos/:id -> Actualizar
+router.patch('/:id', updateProducto);
+
+// DELETE /api/productos/:id -> Borrar
+router.delete('/:id', deleteProducto);
 
 export default router;

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Gestión de Productos</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 1000px; margin: 0 auto; background-color: #f4f4f4; }
+        h1 { color: #2c3e50; text-align: center; }
+        
+        /* Formulario */
+        .form-container { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .full-width { grid-column: span 2; }
+        
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; }
+        input, select, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        
+        button { padding: 10px 20px; cursor: pointer; border-radius: 4px; border: none; color: white; font-weight: bold; }
+        #btn-guardar { background: #27ae60; width: 100%; margin-top: 10px; }
+        #btn-guardar:hover { background: #219150; }
+        #btn-cancelar { background: #95a5a6; width: 100%; margin-top: 10px; display: none; }
+
+        /* Tabla */
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        th, td { border-bottom: 1px solid #ddd; padding: 12px; text-align: left; font-size: 0.9em; }
+        th { background-color: #34495e; color: white; }
+        img.preview { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
+        
+        .btn-edit { background: #f39c12; padding: 5px 10px; margin-right: 5px; }
+        .btn-delete { background: #c0392b; padding: 5px 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>📦 Inventario de Productos</h1>
+
+    <div class="form-container">
+        <h3 id="form-title">Agregar Nuevo Producto</h3>
+        <form id="productoForm">
+            <input type="hidden" id="productoId">
+            
+            <div class="form-grid">
+                <div class="full-width">
+                    <label>Nombre del Producto:</label>
+                    <input type="text" id="nombre" required placeholder="Ej: Minisplit Inverter 1T">
+                </div>
+
+                <div>
+                    <label>SKU (Código):</label>
+                    <input type="text" id="sku" required placeholder="Ej: AIRE-001">
+                </div>
+
+                <div>
+                    <label>Categoría:</label>
+                    <select id="categoria_id" required>
+                        <option value="1">Venta de Equipos</option>
+                        <option value="2">Diagnóstico y Reparaciones</option>
+                        <option value="3">Refacciones y Accesorios</option>
+                        <option value="4">Instalación y Mantenimiento</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Precio ($):</label>
+                    <input type="number" id="precio" step="0.01" required placeholder="0.00">
+                </div>
+
+                <div>
+                    <label>Stock:</label>
+                    <input type="number" id="stock" required placeholder="0">
+                </div>
+
+                <div class="full-width">
+                    <label>Ruta de Imagen:</label>
+                    <input type="text" id="imagen_url" placeholder="img/nombre_foto.jpg">
+                </div>
+
+                <div class="full-width">
+                    <label>Descripción:</label>
+                    <textarea id="descripcion" rows="2" placeholder="Detalles del producto..."></textarea>
+                </div>
+            </div>
+
+            <button type="submit" id="btn-guardar">Guardar Producto</button>
+            <button type="button" id="btn-cancelar">Cancelar Edición</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Img</th>
+                <th>SKU</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaProductos">
+            </tbody>
+    </table>
+
+    <script src="productos_crud.js"></script>
+</body>
+</html>

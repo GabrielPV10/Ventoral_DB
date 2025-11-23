@@ -1,19 +1,21 @@
 import express from 'express';
 import cors from 'cors';
 import productosRouter from './routes/productos.routes.js';
-import clientesRouter from './routes/clientes.routes.js'; // <--- 1. NUEVO: Importar rutas de clientes
+import clientesRouter from './routes/clientes.routes.js';
+import authRouter from './routes/auth.routes.js';
+import carritoRouter from './routes/carrito.routes.js';
 
 const app = express();
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Rutas
 app.get('/', (req, res) => res.json({ message: 'API de Ventoral funcionando' }));
 
 // Definir los endpoints
 app.use('/api/productos', productosRouter);
-app.use('/api/clientes', clientesRouter); // <--- 2. NUEVO: Usar rutas de clientes
+app.use('/api/clientes', clientesRouter); 
+app.use('/api/auth', authRouter);
+app.use('/api/carrito', carritoRouter);
 
 export default app;

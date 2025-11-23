@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Carrito - Ventoral</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; }
+        
+        header { background-color: #fff; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .logo { font-size: 24px; font-weight: bold; color: #003366; text-decoration: none; }
+        
+        .container { max-width: 1000px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        h1 { color: #333; border-bottom: 2px solid #eee; padding-bottom: 15px; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background-color: #f1f1f1; }
+        img.cart-img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; }
+
+        .total-section { text-align: right; margin-top: 30px; font-size: 1.2em; }
+        .total-price { font-weight: bold; color: #e67e22; font-size: 1.5em; }
+
+        .actions { margin-top: 20px; text-align: right; }
+        .btn-pagar { background: #27ae60; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; border: none; cursor: pointer; }
+        .btn-pagar:hover { background: #219150; }
+        .btn-volver { color: #7f8c8d; text-decoration: none; margin-right: 20px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">🌀 Ventoral</a>
+        <nav>
+            <a href="index.html" style="text-decoration: none; color: #333;">← Seguir Comprando</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>🛒 Tu Carrito de Compras</h1>
+        
+        <table id="cartTable">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cant.</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody id="cartBody">
+                </tbody>
+        </table>
+
+        <div class="total-section">
+            Total a Pagar: <span class="total-price" id="totalPrice">$0.00</span>
+        </div>
+
+        <div class="actions">
+            <a href="index.html" class="btn-volver">Cancelar</a>
+            <button class="btn-pagar" onclick="pagarPedido()">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <script src="carrito.js"></script>
+</body>
+</html>
