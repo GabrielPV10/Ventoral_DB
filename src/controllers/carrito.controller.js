@@ -1,88 +1,61 @@
 import { pool } from '../utils/db.js';
 
-// 1. AGREGAR PRODUCTO AL CARRITO
+// 1. AGREGAR AL CARRITO
 export const addToCart = async (req, res) => {
     try {
         const { cliente_id, producto_id, cantidad } = req.body;
 
-        // A. ¿El cliente ya tiene un carrito activo?
+        // Verificar si el cliente ya tiene un carrito
         let [carritos] = await pool.query('SELECT id FROM carritos WHERE cliente_id = ?', [cliente_id]);
         let carrito_id;
 
         if (carritos.length === 0) {
-            // No tiene carrito, creamos uno nuevo
             const [result] = await pool.query('INSERT INTO carritos (cliente_id) VALUES (?)', [cliente_id]);
             carrito_id = result.insertId;
         } else {
-            // Ya tiene carrito, usamos ese
             carrito_id = carritos[0].id;
         }
 
-        // B. ¿El producto ya está en el carrito? (Para sumar cantidad en vez de duplicar)
-        const [items] = await pool.query(
-            'SELECT id, cantidad FROM carrito_items WHERE carrito_id = ? AND producto_id = ?', 
-            [carrito_id, producto_id]
-        );
+        // Verificar si el producto ya está en el carrito
+        const [items] = await pool.query('SELECT id FROM carrito_items WHERE carrito_id = ? AND producto_id = ?', [carrito_id, producto_id]);
 
         if (items.length > 0) {
-            // Ya existe: Actualizamos la cantidad (+1)
-            await pool.query(
-                'UPDATE carrito_items SET cantidad = cantidad + ? WHERE id = ?', 
-                [cantidad, items[0].id]
-            );
+            await pool.query('UPDATE carrito_items SET cantidad = cantidad + ? WHERE id = ?', [cantidad, items[0].id]);
         } else {
-            // No existe: Insertamos nuevo item
-            await pool.query(
-                'INSERT INTO carrito_items (carrito_id, producto_id, cantidad) VALUES (?, ?, ?)',
-                [carrito_id, producto_id, cantidad]
-            );
+            await pool.query('INSERT INTO carrito_items (carrito_id, producto_id, cantidad) VALUES (?, ?, ?)', [carrito_id, producto_id, cantidad]);
         }
 
-        res.json({ message: 'Producto agregado al carrito' });
-
+        res.json({ message: 'Agregado al carrito' });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al agregar al carrito' });
+        res.status(500).json({ message: 'Error al agregar' });
     }
 };
 
-// 2. VER CARRITO (Obtener productos del usuario)
+// 2. OBTENER CARRITO
 export const getCart = async (req, res) => {
     try {
         const { cliente_id } = req.params;
-
-        // Hacemos un JOIN triple: Carrito -> Items -> Productos
-        // Para saber Nombre, Precio e Imagen del producto guardado
         const [rows] = await pool.query(`
-            SELECT 
-                ci.id as item_id, 
-                p.id as producto_id,
-                p.nombre, 
-                p.precio, 
-                p.imagen_url, 
-                ci.cantidad,
-                (p.precio * ci.cantidad) as subtotal
+            SELECT ci.id as item_id, p.nombre, p.precio, p.imagen_url, ci.cantidad, (p.precio * ci.cantidad) as subtotal 
             FROM carritos c
             JOIN carrito_items ci ON c.id = ci.carrito_id
             JOIN productos p ON ci.producto_id = p.id
             WHERE c.cliente_id = ?
         `, [cliente_id]);
-
         res.json(rows);
-
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al obtener el carrito' });
+        res.status(500).json({ message: 'Error al obtener carrito' });
     }
 };
 
-// 3. ELIMINAR ITEM DEL CARRITO
+// 3. ELIMINAR ITEM (NUEVO)
 export const deleteCartItem = async (req, res) => {
     try {
-        const { item_id } = req.params;
-        await pool.query('DELETE FROM carrito_items WHERE id = ?', [item_id]);
-        res.json({ message: 'Producto eliminado del carrito' });
+        const { id } = req.params; // El ID del item en el carrito
+        await pool.query('DELETE FROM carrito_items WHERE id = ?', [id]);
+        res.json({ message: 'Producto eliminado' });
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: 'Error al eliminar' });
     }
 };

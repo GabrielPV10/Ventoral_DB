@@ -15,7 +15,7 @@ export const pool = await createPool({
 // Probamos la conexión
 try {
   await pool.query('SELECT 1');
-  console.log('✅ Conectado a MySQL');
+  console.log('Conectado a MySQL');
 } catch (err) {
-  console.error('❌ Error conectando a MySQL:', err.message);
+  console.error('Error conectando a MySQL:', err.message);
 }

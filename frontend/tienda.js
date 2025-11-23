@@ -125,7 +125,6 @@ async function agregarAlCarrito(productoId) {
     }
 }
 
-// Función para actualizar el número en el menú
 async function actualizarContadorCarrito() {
     if (!usuarioLogueado) return;
 
@@ -133,22 +132,20 @@ async function actualizarContadorCarrito() {
         const res = await fetch(`http://localhost:3000/api/carrito/${usuarioLogueado.id}`);
         const items = await res.json();
         
-        // Sumar todas las cantidades
         const totalItems = items.reduce((sum, item) => sum + item.cantidad, 0);
         
-        // CAMBIO AQUÍ: Buscamos el botón por su clase y texto, o mejor aún, le ponemos un ID en el HTML
-        const btnCarrito = document.querySelector('.btn-login'); 
-        
-        // Buscamos específicamente el botón que tiene el texto "Carrito" o el icono
+        // SOLUCIÓN: Buscamos todos los botones y actualizamos el que sea del carrito
         const botones = document.querySelectorAll('.btn-login');
+        
         botones.forEach(btn => {
-            if(btn.textContent.includes('Carrito')) {
-                btn.textContent = `🛒 Carrito (${totalItems})`;
+            // Si el botón tiene el icono 🛒 o dice "Carrito", lo actualizamos
+            if(btn.innerText.includes('Carrito')) {
+                btn.innerText = `🛒 Carrito (${totalItems})`;
             }
         });
 
     } catch (error) {
-        console.error("Error actualizando contador:", error);
+        console.error("Error actualizando contador");
     }
 }
 // Llamamos a esta función al cargar la página para ver si ya había cosas guardadas

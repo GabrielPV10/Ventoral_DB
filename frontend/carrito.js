@@ -23,12 +23,11 @@ async function cargarCarrito() {
     }
 }
 
-// 3. Dibujar en HTML (ACTUALIZADO CON BOTÓN ELIMINAR)
+// 3. Dibujar en HTML
 function renderizarCarrito(items) {
+    // 1. Asegurar que la tabla tenga la columna de Acción
     const tableHead = document.querySelector('#cartTable thead tr');
-    
-    // Asegurarnos que la cabecera tenga la columna "Acción"
-    if (!tableHead.innerHTML.includes('Acción')) {
+    if (tableHead && !tableHead.innerHTML.includes('Acción')) {
         tableHead.innerHTML += '<th>Acción</th>';
     }
 
@@ -65,25 +64,19 @@ function renderizarCarrito(items) {
 
     totalPriceElement.innerText = `$${total.toFixed(2)}`;
 }
+// 4. ELIMINAR ITEM (Conectado al Backend)
+async function eliminarItem(id) {
+    if(!confirm("¿Eliminar este producto?")) return;
+    
+    await fetch(`http://localhost:3000/api/carrito/item/${id}`, { method: 'DELETE' });
+    cargarCarrito(); // Recargar tabla
+    alert("Producto eliminado");
+}
 
-// NUEVA FUNCIÓN PARA ELIMINAR DESDE EL FRONTEND
-async function eliminarItem(itemId) {
-    if(!confirm("¿Quitar este producto?")) return;
-
-    try {
-        const res = await fetch(`http://localhost:3000/api/carrito/item/${itemId}`, {
-            method: 'DELETE'
-        });
-
-        if (res.ok) {
-            cargarCarrito(); // Recargar la tabla para ver los cambios
-            // Opcional: actualizar el contador si estuviéramos en la tienda principal
-        } else {
-            alert("Error al eliminar");
-        }
-    } catch (error) {
-        console.error(error);
-    }
+// 5. PROCESAR PAGO (Checkout)
+function pagarPedido() {
+    // Redirigir a la página de checkout
+    window.location.href = 'checkout.html';
 }
 // Iniciar
 cargarCarrito();
