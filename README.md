@@ -45,13 +45,13 @@ npm run dev
 Si todo es correcto, verá en la terminal: Conectado a MySQL API escuchando en http://localhost:3000
 
 ## 5. Guía de Uso (Frontend)
-El proyecto cuenta con dos interfaces principales. Para acceder a ellas, abra los archivos .html dentro de la carpeta frontend (se recomienda usar "Open with Live Server").
+El proyecto cuenta con dos interfaces principales. Para acceder a ellas, abra los archivos .html dentro de la carpeta frontend (se recomienda usar la extension Live Server y abrir "Open with Live Server").
 
   Para Clientes (Tienda)
-Acceso para registrarse, ver catálogo y comprar.
 Abra frontend/login.html o frontend/register.html.
 Cree una cuenta o inicie sesión.
 El sistema lo redirigirá a la tienda (index.html) donde podrá agregar productos al carrito y pagar.
+Acceso para ver catálogo y comprar.
 
   Para Administradores (Gestión)
 Panel para gestionar la base de datos (CRUDs).
