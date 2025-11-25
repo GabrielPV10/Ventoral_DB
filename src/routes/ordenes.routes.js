@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { createOrder } from '../controllers/ordenes.controller.js';
+import { createOrder, getAllOrders } from '../controllers/ordenes.controller.js';
 
 const router = Router();
 
-router.post('/', createOrder); // POST /api/ordenes
+router.post('/', createOrder);   
+router.get('/', getAllOrders);  
 
 export default router;

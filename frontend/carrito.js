@@ -1,7 +1,6 @@
 const tableBody = document.getElementById('cartBody');
 const totalPriceElement = document.getElementById('totalPrice');
 
-// 1. Verificar Sesión
 const usuarioLogueado = JSON.parse(localStorage.getItem('usuario'));
 
 if (!usuarioLogueado) {
@@ -9,7 +8,6 @@ if (!usuarioLogueado) {
     window.location.href = 'login.html';
 }
 
-// 2. Cargar Items del Carrito
 async function cargarCarrito() {
     try {
         const res = await fetch(`http://localhost:3000/api/carrito/${usuarioLogueado.id}`);

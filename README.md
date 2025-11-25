@@ -38,25 +38,30 @@ MYSQL_DB=ventoral_db
 PORT=3000
 (Nota: Verifique si su MySQL corre en el puerto 3306 o 3307 y ajuste MYSQL_PORT si es necesario).
 
-## 4. Ejecutar la Aplicación (Backend)
+4. Ejecutar la Aplicación (Backend)
 Para iniciar el servidor en modo de desarrollo:
-npm run dev
 
+npm run dev
 Si todo es correcto, verá en la terminal: Conectado a MySQL API escuchando en http://localhost:3000
 
-## 5. Guía de Uso (Frontend)
-El proyecto cuenta con dos interfaces principales. Para acceder a ellas, abra los archivos .html dentro de la carpeta frontend (se recomienda usar la extension Live Server y abrir "Open with Live Server").
+SERVIDOR INICIADO EN EL PUERTO 3000
+==========================================
+Tienda (Clientes):  http://localhost:3000/index.html
+Login:              http://localhost:3000/login.html
+Panel Admin:        http://localhost:3000/admin.html
+==========================================
 
-  Para Clientes (Tienda)
-Abra frontend/login.html o frontend/register.html.
-Cree una cuenta o inicie sesión.
-El sistema lo redirigirá a la tienda (index.html) donde podrá agregar productos al carrito y pagar.
-Acceso para ver catálogo y comprar.
+🌐 5. Guía de Uso (Frontend)
+El proyecto cuenta con dos interfaces principales. Para acceder a ellas, navegue a la carpeta frontend y abra los archivos .html (se recomienda usar "Open with Live Server" en VS Code).
 
-  Para Administradores (Gestión)
-Panel para gestionar la base de datos (CRUDs).
-Abra frontend/admin.html.
-Desde este menú podrá acceder a:
-Gestión de Productos: Crear, editar o eliminar productos.
-Gestión de Clientes: Ver y administrar usuarios registrados.
-Ver Pedidos: Historial de ventas realizadas.
+🛒 Para Clientes (Tienda)
+-Entrada: Abra frontend/login.html o frontend/register.html.
+-Flujo: Cree una cuenta o inicie sesión. El sistema lo redirigirá a la tienda (index.html).
+-Funciones: Ver catálogo, filtrar productos, agregar al carrito y procesar pago.
+
+⚙️ Para Administradores (Gestión)
+Entrada: Abra frontend/admin.html.
+Funciones:
+-Gestión de Productos: Crear, editar o eliminar productos del catálogo.
+-Gestión de Clientes: Ver y administrar usuarios registrados.
+-Ver Pedidos: Historial de todas las ventas realizadas.

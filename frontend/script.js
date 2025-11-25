@@ -2,13 +2,12 @@ const API_URL = 'http://localhost:3000/api/clientes';
 const form = document.getElementById('clienteForm');
 const tableBody = document.querySelector('#clientesTable tbody');
 
-// 1. FUNCIÓN PARA OBTENER Y MOSTRAR CLIENTES (READ)
 async function cargarClientes() {
     try {
         const res = await fetch(API_URL); // Hace la petición GET
         const clientes = await res.json();
         
-        tableBody.innerHTML = ''; // Limpiar tabla antes de recargar
+        tableBody.innerHTML = '';
         
         clientes.forEach(cliente => {
             const row = document.createElement('tr');
@@ -95,9 +94,6 @@ async function eliminarCliente(id) {
         console.error("Error eliminando:", error);
     }
 }
-
-// 4. FUNCIÓN AUXILIAR PARA LLENAR FORMULARIO (Prepara el UPDATE)
-// Nota: Esta función hace una petición extra para obtener todos los datos del cliente (como la dirección)
 async function llenarFormulario(id) {
     const res = await fetch(`${API_URL}/${id}`);
     const cliente = await res.json();
@@ -105,17 +101,15 @@ async function llenarFormulario(id) {
     document.getElementById('clienteId').value = cliente.id;
     document.getElementById('nombre').value = cliente.nombre_completo;
     document.getElementById('email').value = cliente.email;
-    document.getElementById('password').value = cliente.password; // Por seguridad, usualmente no se devuelve, pero para el ejemplo sirve.
+    document.getElementById('password').value = cliente.password;
     document.getElementById('telefono').value = cliente.telefono;
     document.getElementById('direccion').value = cliente.direccion_default;
 
-    // Cambiar estado visual del formulario
     document.getElementById('form-title').innerText = "Editar Cliente";
     document.getElementById('btn-guardar').innerText = "Actualizar";
     document.getElementById('btn-cancelar').style.display = 'inline-block';
 }
 
-// Botón cancelar edición
 document.getElementById('btn-cancelar').addEventListener('click', () => {
     form.reset();
     document.getElementById('clienteId').value = '';
@@ -124,5 +118,4 @@ document.getElementById('btn-cancelar').addEventListener('click', () => {
     document.getElementById('btn-cancelar').style.display = 'none';
 });
 
-// Cargar la lista al iniciar
 cargarClientes();

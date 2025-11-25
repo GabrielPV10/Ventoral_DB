@@ -11,9 +11,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => res.json({ message: 'API de Ventoral funcionando' }));
+app.use(express.static('frontend')); 
 
-// Definir los endpoints
+// Rutas API
+app.get('/api', (req, res) => res.json({ message: 'API de Ventoral funcionando' })); // Cambié la ruta base a /api para no chocar con el index.html
 app.use('/api/productos', productosRouter);
 app.use('/api/clientes', clientesRouter); 
 app.use('/api/auth', authRouter);

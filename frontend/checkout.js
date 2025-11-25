@@ -3,18 +3,15 @@ const totalElement = document.getElementById('totalAmount');
 const metodoSelect = document.getElementById('metodo_pago');
 const refGroup = document.getElementById('refGroup');
 
-// 1. Verificar usuario
 const usuarioLogueado = JSON.parse(localStorage.getItem('usuario'));
 if (!usuarioLogueado) {
     window.location.href = 'login.html';
 }
 
-// Pre-llenar dirección si existe
 if(usuarioLogueado.direccion_default) {
     document.getElementById('direccion').value = usuarioLogueado.direccion_default;
 }
 
-// 2. Calcular Total Real (Consultando al Backend)
 let totalCalculado = 0;
 
 async function calcularTotal() {

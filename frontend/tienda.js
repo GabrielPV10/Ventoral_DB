@@ -21,13 +21,10 @@ function cerrarSesion() {
     window.location.reload();
 }
 
-// 2. Cargar Productos del Backend
 async function cargarProductos() {
     try {
         const res = await fetch(API_PRODUCTOS);
-        todosLosProductos = await res.json(); // Guardamos los datos en la variable global
-        
-        // Mostramos todos al principio
+        todosLosProductos = await res.json();
         mostrarProductos(todosLosProductos);
 
     } catch (error) {
@@ -36,9 +33,8 @@ async function cargarProductos() {
     }
 }
 
-// 3. Función para "Pintar" los productos en pantalla
 function mostrarProductos(lista) {
-    productosContainer.innerHTML = ''; // Limpiar contenido actual
+    productosContainer.innerHTML = '';
 
     if(lista.length === 0) {
         productosContainer.innerHTML = '<p style="text-align:center; width:100%;">No hay productos en esta categoría.</p>';
@@ -46,7 +42,6 @@ function mostrarProductos(lista) {
     }
 
     lista.forEach(prod => {
-        // Usar imagen por defecto si no tiene
         const imagen = prod.imagen_url || 'https://via.placeholder.com/300x300?text=Producto';
 
         const card = document.createElement('div');
@@ -64,18 +59,14 @@ function mostrarProductos(lista) {
         productosContainer.appendChild(card);
     });
 }
-
-// 4. Función de Filtrado (Llamada por los botones del HTML)
 function filtrarProductos(categoriaId) {
     if (categoriaId === 'todos') {
         mostrarProductos(todosLosProductos);
     } else {
-        // Filtramos la lista original usando el ID de categoría
         const filtrados = todosLosProductos.filter(p => p.categoria_id === categoriaId);
         mostrarProductos(filtrados);
     }
 }
-
 function agregarAlCarrito(id) {
     if (!usuarioLogueado) {
         alert("Por favor inicia sesión para comprar.");
@@ -85,22 +76,15 @@ function agregarAlCarrito(id) {
     alert(`Producto ID ${id} agregado (Simulación)`);
 }
 
-// Iniciar
 cargarProductos();
 
-// ... (El código anterior de cargar productos sigue igual) ...
-
-// NUEVA LÓGICA DEL CARRITO
-
 async function agregarAlCarrito(productoId) {
-    // 1. Validar sesión
     if (!usuarioLogueado) {
         alert("Por favor inicia sesión para comprar.");
         window.location.href = 'login.html';
         return;
     }
 
-    // 2. Enviar al Backend
     try {
         const res = await fetch('http://localhost:3000/api/carrito/agregar', {
             method: 'POST',
@@ -114,7 +98,7 @@ async function agregarAlCarrito(productoId) {
 
         if (res.ok) {
             alert("¡Producto agregado!");
-            actualizarContadorCarrito(); // Actualizamos el número en el menú
+            actualizarContadorCarrito();
         } else {
             alert("Error al agregar producto");
         }
@@ -148,5 +132,4 @@ async function actualizarContadorCarrito() {
         console.error("Error actualizando contador");
     }
 }
-// Llamamos a esta función al cargar la página para ver si ya había cosas guardadas
 actualizarContadorCarrito();
