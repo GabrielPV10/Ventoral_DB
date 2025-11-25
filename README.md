@@ -1,6 +1,6 @@
-# Proyecto API Rest - Ventoral
+# Práctica 10: Autenticación y Base de Datos - Ventoral
 
-API REST y Aplicación Web para la gestión de la tienda Ventoral (E-commerce de Climatización), creada con Node.js, Express y MySQL.
+Aplicación web que implementa un sistema de **Registro y Autenticación de Usuarios** seguro (con contraseñas encriptadas) conectado a una base de datos MySQL completa para un E-commerce.
 
 ## Requisitos Previos
 * **Node.js** (v18 o superior)
@@ -19,15 +19,17 @@ API REST y Aplicación Web para la gestión de la tienda Ventoral (E-commerce de
 
 ## 2. Configuración de la Base de Datos
 
-El proyecto incluye un script automatizado que crea la base de datos, las tablas, los datos de prueba (productos) y el usuario de conexión.
+El proyecto incluye un script automatizado que crea la estructura completa del E-commerce (Clientes, Productos, Órdenes, Pagos) y el usuario de conexión.
 
 1.  Abra **MySQL Workbench** y conéctese a su instancia local (usualmente como usuario `root`).
 2.  Abra el archivo SQL ubicado en: `db/ventoral_db.sql`.
 3.  Ejecute todo el script (Icono del rayo ⚡).
 
+> **Nota:** Este script creará automáticamente un usuario llamado `ventoral_user` con la contraseña `pass1234`.
+
 ## 3. Configuración de Variables de Entorno
 
-1.  En la raíz del proyecto, cree un nuevo archivo llamado `.env` (puede basarse en `.env.example` si existe).
+1.  En la raíz del proyecto, cree un nuevo archivo llamado `.env`.
 2.  Copie y pegue la siguiente configuración:
 
 MYSQL_HOST=localhost
@@ -36,27 +38,22 @@ MYSQL_USER=ventoral_user
 MYSQL_PASSWORD=pass1234
 MYSQL_DB=ventoral_db
 PORT=3000
+
 (Nota: Verifique si su MySQL corre en el puerto 3306 o 3307 y ajuste MYSQL_PORT si es necesario).
 
 ## 4. Ejecutar la Aplicación (Backend)
-Para iniciar el servidor en modo de desarrollo:
-npm run dev
+Para iniciar el servidor:
 
-Si todo es correcto, verá en la terminal: Conectado a MySQL API escuchando en http://localhost:3000
+npm run dev
+Si todo es correcto, verá en la terminal: Conectado a MySQL.
 
 ## 5. Guía de Uso (Frontend)
-El proyecto cuenta con dos interfaces principales. Para acceder a ellas, abra los archivos .html dentro de la carpeta frontend (se recomienda usar la extension Live Server y abrir "Open with Live Server").
+Esta entrega se enfoca en la autenticación de usuarios.
 
-  Para Clientes (Tienda)
-Abra frontend/login.html o frontend/register.html.
-Cree una cuenta o inicie sesión.
-El sistema lo redirigirá a la tienda (index.html) donde podrá agregar productos al carrito y pagar.
-Acceso para ver catálogo y comprar.
+Vaya a la carpeta frontend y abra el archivo login.html (se recomienda usar "Open with Live Server").
 
-  Para Administradores (Gestión)
-Panel para gestionar la base de datos (CRUDs).
-Abra frontend/admin.html.
-Desde este menú podrá acceder a:
-Gestión de Productos: Crear, editar o eliminar productos.
-Gestión de Clientes: Ver y administrar usuarios registrados.
-Ver Pedidos: Historial de ventas realizadas.
+Registro: Haga clic en "Regístrate aquí". Llene el formulario. La contraseña se guardará encriptada (Hash) en la base de datos.
+
+Login: Use sus credenciales para iniciar sesión.
+
+Validación: Si los datos son correctos, el sistema generará la sesión y le dará acceso a la pantalla de Bienvenida (index.html).

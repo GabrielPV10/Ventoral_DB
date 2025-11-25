@@ -3,81 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventoral - Clima y Refrigeración</title>
+    <title>Bienvenido - Ventoral</title>
     <style>
-        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; }
-        
-        /* Barra de Navegación */
-        header { background-color: #fff; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .logo { font-size: 24px; font-weight: bold; color: #003366; text-decoration: none;}
-        nav a { margin: 0 15px; text-decoration: none; color: #333; font-weight: 500; }
-        .user-actions { display: flex; gap: 15px; align-items: center; }
-        .btn-login { background: #007bff; color: white; padding: 8px 15px; border-radius: 20px; text-decoration: none; }
-        
-        /* Banner Principal */
-        .hero { background: linear-gradient(rgba(0,51,102,0.8), rgba(0,51,102,0.8)), url('https://via.placeholder.com/1200x400'); background-size: cover; color: white; text-align: center; padding: 80px 20px; }
-        .hero h1 { font-size: 48px; margin-bottom: 10px; }
-        .hero p { font-size: 18px; margin-bottom: 20px; }
-        .btn-cta { background: #ff9900; color: white; padding: 12px 30px; font-size: 18px; border: none; border-radius: 5px; cursor: pointer; }
-
-        /* Catálogo de Productos */
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        h2.section-title { text-align: center; color: #333; margin-bottom: 30px; }
-        
-        /* Filtros */
-        .filters { text-align: center; margin-bottom: 20px; }
-        .filters button { background: #fff; border: 1px solid #ddd; padding: 8px 15px; margin: 0 5px; cursor: pointer; border-radius: 20px; transition: all 0.3s; }
-        .filters button:hover { background: #003366; color: white; border-color: #003366; }
-
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
-        
-        .product-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: transform 0.3s; }
-        .product-card:hover { transform: translateY(-5px); }
-        .product-img { width: 100%; height: 200px; object-fit: contain; padding: 20px; box-sizing: border-box; }
-        .product-info { padding: 20px; }
-        .product-title { font-size: 16px; font-weight: bold; color: #333; margin-bottom: 10px; height: 40px; overflow: hidden; }
-        .product-price { color: #e67e22; font-size: 18px; font-weight: bold; margin-bottom: 15px; }
-        .btn-add { width: 100%; padding: 10px; background: #003366; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        .btn-add:hover { background: #002244; }
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f2f5; margin: 0; }
+        .container { text-align: center; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        p { font-size: 1.2em; color: #555; }
+        button { padding: 10px 20px; background: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+        button:hover { background: #c0392b; }
     </style>
 </head>
 <body>
-
-    <header>
-        <div class="logo">🌀 Ventoral</div>
-        <nav>
-            <a href="#">Inicio</a>
-            <a href="#">Tienda</a>
-            <a href="#">Servicios</a>
-            <a href="#">Contacto</a>
-        </nav>
-        <div class="user-actions" id="userMenu">
-            <a href="login.html" class="btn-login">Iniciar Sesión</a>
-        </div>
-    </header>
-
-    <div class="hero">
-        <h1>Servicio Profesional de Clima</h1>
-        <p>Confianza, rapidez y precios transparentes para tu hogar y negocio.</p>
-        <button class="btn-cta">Ver Ofertas</button>
-    </div>
-
     <div class="container">
-        <h2 class="section-title">Últimos Productos</h2>
-
-        <div class="filters">
-            <button onclick="filtrarProductos('todos')">Todos</button>
-            <button onclick="filtrarProductos(1)">Equipos</button>
-            <button onclick="filtrarProductos(4)">Instalación</button>
-            <button onclick="filtrarProductos(3)">Refacciones</button>
-            <button onclick="filtrarProductos(2)">Diagnóstico</button>
-        </div>
-
-        <div class="products-grid" id="productosContainer">
-            <p style="text-align: center; width: 100%;">Cargando productos...</p>
-        </div>
+        <h1>🎉 ¡Sesión Iniciada!</h1>
+        <p id="mensajeBienvenida">Cargando usuario...</p>
+        <button onclick="cerrarSesion()">Cerrar Sesión</button>
     </div>
 
-    <script src="tienda.js"></script>
+    <script>
+        // Verificar si hay sesión
+        const usuario = JSON.parse(localStorage.getItem('usuario'));
+        
+        if (!usuario) {
+            window.location.href = 'login.html';
+        } else {
+            document.getElementById('mensajeBienvenida').innerText = `Bienvenido al sistema, ${usuario.nombre}`;
+        }
+
+        function cerrarSesion() {
+            localStorage.removeItem('usuario');
+            window.location.href = 'login.html';
+        }
+    </script>
 </body>
 </html>
