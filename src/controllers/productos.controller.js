@@ -1,4 +1,4 @@
-import { pool } from '../utils/db.js';
+import { pool } from '../config/db.js';
 
 // 1. OBTENER TODOS LOS PRODUCTOS (GET)
 export const getProductos = async (req, res) => {

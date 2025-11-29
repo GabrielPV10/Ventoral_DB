@@ -1,4 +1,4 @@
-import { pool } from '../utils/db.js';
+import { pool } from '../config/db.js';
 
 // 1. AGREGAR AL CARRITO
 export const addToCart = async (req, res) => {

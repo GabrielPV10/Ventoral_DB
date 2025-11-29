@@ -18,16 +18,16 @@ form.addEventListener('submit', async (e) => {
         const data = await res.json();
 
         if (res.ok) {
-            // ¡Login Exitoso!
             alert('Bienvenido ' + data.usuario.nombre);
-            
-            // Guardamos un "testigo" de que ya inició sesión (opcional pero recomendado)
             localStorage.setItem('usuario', JSON.stringify(data.usuario));
 
-            // REDIRECCIÓN: Mandamos al usuario a la página principal (el CRUD)
-            window.location.href = 'index.html';
+            // LÓGICA DE ROLES (Admin vs Cliente)
+            if (data.usuario.email === 'admin@ventoral.com') {
+                window.location.href = 'admin.html'; // El jefe va al panel
+            } else {
+                window.location.href = 'index.html'; // Los clientes a la tienda
+            }
         } else {
-            // Login Fallido
             errorMsg.style.display = 'block';
             errorMsg.innerText = data.message || 'Error al iniciar sesión';
         }

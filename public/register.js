@@ -15,7 +15,6 @@ form.addEventListener('submit', async (e) => {
     };
 
     try {
-        // 2. Enviar al Backend
         const res = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -25,11 +24,10 @@ form.addEventListener('submit', async (e) => {
         const data = await res.json();
 
         if (res.ok) {
-            // 3. Éxito: Avisar y mandar al Login
+     
             alert('¡Cuenta creada con éxito! Ahora inicia sesión.');
             window.location.href = 'login.html';
         } else {
-            // 4. Error (Ej: Email repetido, teléfono mal)
             errorMsg.style.display = 'block';
             errorMsg.innerText = data.message || 'Error al registrarse';
         }

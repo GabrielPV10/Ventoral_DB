@@ -5,13 +5,14 @@ import clientesRouter from './routes/clientes.routes.js';
 import authRouter from './routes/auth.routes.js';
 import carritoRouter from './routes/carrito.routes.js';
 import ordenesRouter from './routes/ordenes.routes.js';
+import categoriasRouter from './routes/categorias.routes.js';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static('frontend')); 
+app.use(express.static('public'));
 
 // Rutas API
 app.get('/api', (req, res) => res.json({ message: 'API de Ventoral funcionando' })); // Cambié la ruta base a /api para no chocar con el index.html
@@ -20,5 +21,6 @@ app.use('/api/clientes', clientesRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/carrito', carritoRouter);
 app.use('/api/ordenes', ordenesRouter);
+app.use('/api/categorias', categoriasRouter);
 
 export default app;

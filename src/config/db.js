@@ -12,7 +12,6 @@ export const pool = await createPool({
   queueLimit: 0
 });
 
-// Probamos la conexión
 try {
   await pool.query('SELECT 1');
   console.log('Conectado a MySQL');

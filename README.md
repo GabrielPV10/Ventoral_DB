@@ -38,30 +38,26 @@ MYSQL_DB=ventoral_db
 PORT=3000
 (Nota: Verifique si su MySQL corre en el puerto 3306 o 3307 y ajuste MYSQL_PORT si es necesario).
 
-4. Ejecutar la Aplicación (Backend)
-Para iniciar el servidor en modo de desarrollo:
+## 4. Ejecutar la Aplicación (Backend)
+Para iniciar el servidor en modo de desarrollo: npm run dev
+Si todo es correcto, verá en la terminal: Conectado a MySQL 🚀 API escuchando en http://localhost:3000
 
-npm run dev
-Si todo es correcto, verá en la terminal: Conectado a MySQL API escuchando en http://localhost:3000
+## 5. Guía de Uso (Frontend)
+El sistema cuenta con detección de roles basada en el correo electrónico. Para probarlo, abra los archivos .html dentro de la carpeta frontend (se recomienda usar "Open with Live Server").
 
-SERVIDOR INICIADO EN EL PUERTO 3000
-==========================================
-Tienda (Clientes):  http://localhost:3000/index.html
-Login:              http://localhost:3000/login.html
-Panel Admin:        http://localhost:3000/admin.html
-==========================================
+    Opción A: Entrar como Cliente (Tienda)
+Vaya al Login (frontend/login.html) o Registro (frontend/register.html).
+Regístrese con cualquier correo (ej: juan@correo.com).
+Al iniciar sesión, el sistema lo llevará a la Tienda (index.html) donde podrá ver productos, agregar al carrito y comprar.
 
-🌐 5. Guía de Uso (Frontend)
-El proyecto cuenta con dos interfaces principales. Para acceder a ellas, navegue a la carpeta frontend y abra los archivos .html (se recomienda usar "Open with Live Server" en VS Code).
+    Opción B: Entrar como Administrador (Panel de Gestión)
+Para acceder a los CRUDs, debe registrarse con el correo maestro.
+Vaya a Registro (frontend/register.html).
+Cree una cuenta usando EXACTAMENTE este correo: admin@ventoral.com (La contraseña puede ser cualquiera).
+Al iniciar sesión con ese correo, el sistema lo redirigirá al Panel de Administración (admin.html).
 
-🛒 Para Clientes (Tienda)
--Entrada: Abra frontend/login.html o frontend/register.html.
--Flujo: Cree una cuenta o inicie sesión. El sistema lo redirigirá a la tienda (index.html).
--Funciones: Ver catálogo, filtrar productos, agregar al carrito y procesar pago.
-
-⚙️ Para Administradores (Gestión)
-Entrada: Abra frontend/admin.html.
-Funciones:
--Gestión de Productos: Crear, editar o eliminar productos del catálogo.
--Gestión de Clientes: Ver y administrar usuarios registrados.
--Ver Pedidos: Historial de todas las ventas realizadas.
+Desde ahí podrá gestionar:
+    Productos: Crear, editar y eliminar.
+    Categorías: Administrar el catálogo.
+    Clientes: Ver usuarios registrados.
+    Pedidos: Ver historial de ventas.

@@ -1,4 +1,4 @@
-import { pool } from '../utils/db.js';
+import { pool } from '../config/db.js';
 import bcrypt from 'bcryptjs'; // Importamos la librería de seguridad
 
 // 1. REGISTRO DE USUARIO (Register)

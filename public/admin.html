@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Ventoral</title>
+    <script>
+        const usuario = JSON.parse(localStorage.getItem('usuario'));
+        // Si no hay usuario, o el email no es el del admin... ¡FUERA!
+        if (!usuario || usuario.email !== 'admin@ventoral.com') {
+            alert("Acceso denegado. Área exclusiva para administradores.");
+            window.location.href = 'login.html';
+        }
+    </script>
+    <style>
+        body { font-family: 'Arial', sans-serif; background-color: #2c3e50; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .dashboard { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; width: 400px; }
+        h1 { color: #333; margin-bottom: 10px; }
+        p { color: #777; margin-bottom: 30px; }
+        .menu-btn { display: block; width: 100%; padding: 15px; margin: 10px 0; text-decoration: none; color: white; border-radius: 5px; font-size: 16px; transition: 0.3s; box-sizing: border-box; }
+        
+        .btn-products { background-color: #27ae60; }
+        .btn-cats { background-color: #8e44ad; } /* Nuevo color para categorías */
+        .btn-clients { background-color: #2980b9; }
+        .btn-orders { background-color: #e67e22; }
+        .btn-logout { background-color: #c0392b; margin-top: 20px; font-size: 14px; }
+        
+        .menu-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        <h1>Admin Panel</h1>
+        <p>Sistema de Gestión Ventoral</p>
+        
+        <a href="CRUD_productos.html" class="menu-btn btn-products">📦 Gestionar Productos</a>
+        <a href="CRUD_categorias.html" class="menu-btn btn-cats">🏷️ Gestionar Categorías</a> <a href="CRUD_clientes.html" class="menu-btn btn-clients">👥 Gestionar Clientes</a>
+        <a href="admin_pedidos.html" class="menu-btn btn-orders">📋 Ver Pedidos</a>
+        
+        <a href="#" onclick="cerrarSesion()" class="menu-btn btn-logout">Cerrar Sesión</a>
+    </div>
+
+    <script>
+        function cerrarSesion() {
+            localStorage.removeItem('usuario');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

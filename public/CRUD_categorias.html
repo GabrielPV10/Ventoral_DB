@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Gestión de Categorías</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; background-color: #f4f4f4; }
+        h1 { color: #2c3e50; text-align: center; }
+        
+        .form-container { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; margin-bottom: 15px; }
+        
+        button { padding: 10px 20px; cursor: pointer; border-radius: 4px; border: none; color: white; font-weight: bold; }
+        #btn-guardar { background: #27ae60; width: 100%; }
+        #btn-guardar:hover { background: #219150; }
+        
+        /* Tabla */
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        th, td { border-bottom: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #34495e; color: white; }
+        
+        .btn-delete { background: #c0392b; padding: 5px 10px; font-size: 0.9em; }
+        .btn-back { display: inline-block; margin-bottom: 20px; padding: 10px 15px; background-color: #7f8c8d; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <a href="admin.html" class="btn-back">← Volver al Panel</a>
+
+    <h1>🏷️ Inventario de Categorías</h1>
+
+    <div class="form-container">
+        <h3>Agregar Nueva Categoría</h3>
+        <form id="categoriaForm">
+            <label>Nombre de la Categoría:</label>
+            <input type="text" id="nombre" required placeholder="Ej: Electrónica">
+
+            <label>Descripción:</label>
+            <textarea id="descripcion" rows="2" placeholder="Breve descripción..."></textarea>
+
+            <button type="submit" id="btn-guardar">Guardar Categoría</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaCategorias">
+            </tbody>
+    </table>
+    
+    <script>
+        const API_URL = 'http://localhost:3000/api/categorias';
+        const form = document.getElementById('categoriaForm');
+        const tabla = document.getElementById('tablaCategorias');
+        let editId = null; // Variable para saber si estamos editando
+
+        // LEER
+        async function cargar() {
+            const res = await fetch(API_URL);
+            const categorias = await res.json();
+            tabla.innerHTML = '';
+            categorias.forEach(cat => {
+                tabla.innerHTML += `
+                    <tr>
+                        <td>${cat.id}</td>
+                        <td>${cat.nombre}</td>
+                        <td>${cat.descripcion || '-'}</td>
+                        <td>
+                            <button class="btn-edit" onclick="cargarEdicion(${cat.id})" style="background:#f39c12; margin-right:5px;">Editar</button>
+                            <button class="btn-delete" onclick="borrar(${cat.id})">Borrar</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        // PREPARAR EDICIÓN
+        async function cargarEdicion(id) {
+            const res = await fetch(`${API_URL}/${id}`);
+            const cat = await res.json();
+            
+            document.getElementById('nombre').value = cat.nombre;
+            document.getElementById('descripcion').value = cat.descripcion;
+            editId = id; // Guardamos el ID que estamos editando
+            
+            // Cambiar botón visualmente
+            const btn = document.getElementById('btn-guardar');
+            btn.innerText = "Actualizar Categoría";
+            btn.style.backgroundColor = "#e67e22";
+        }
+
+        // GUARDAR (CREAR O ACTUALIZAR)
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const datos = {
+                nombre: document.getElementById('nombre').value,
+                descripcion: document.getElementById('descripcion').value
+            };
+
+            if (editId) {
+                // MODO EDICIÓN (PATCH)
+                await fetch(`${API_URL}/${editId}`, {
+                    method: 'PATCH',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(datos)
+                });
+                alert('Categoría Actualizada');
+                editId = null; // Resetear
+                document.getElementById('btn-guardar').innerText = "Guardar Categoría";
+                document.getElementById('btn-guardar').style.backgroundColor = "#27ae60";
+            } else {
+                // MODO CREAR (POST)
+                await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(datos)
+                });
+                alert('Categoría Creada');
+            }
+            
+            form.reset();
+            cargar();
+        });
+
+        // BORRAR
+        async function borrar(id) {
+            if(!confirm('¿Borrar categoría?')) return;
+            await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            cargar();
+        }
+
+        cargar();
+    </script>
+</body>
+</html>

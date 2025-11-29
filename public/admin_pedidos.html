@@ -48,13 +48,22 @@
                 tbody.innerHTML = '';
                 ordenes.forEach(orden => {
                     const fecha = new Date(orden.fecha_creacion).toLocaleDateString();
+                    // Dentro del forEach en cargarPedidos
                     const fila = `
                         <tr>
                             <td>#${orden.id}</td>
                             <td>${orden.nombre_completo}</td>
                             <td>${fecha}</td>
                             <td>$${parseFloat(orden.total).toFixed(2)}</td>
-                            <td><span class="status ${orden.estado}">${orden.estado.toUpperCase()}</span></td>
+                            <td>
+                                <select onchange="cambiarEstado(${orden.id}, this.value)">
+                                    <option value="pagado" ${orden.estado === 'pagado' ? 'selected' : ''}>Pagado</option>
+                                    <option value="en_proceso" ${orden.estado === 'en_proceso' ? 'selected' : ''}>En Proceso</option>
+                                    <option value="enviado" ${orden.estado === 'enviado' ? 'selected' : ''}>Enviado</option>
+                                    <option value="completado" ${orden.estado === 'completado' ? 'selected' : ''}>Completado</option>
+                                    <option value="cancelado" ${orden.estado === 'cancelado' ? 'selected' : ''}>Cancelado</option>
+                                </select>
+                            </td>
                         </tr>
                     `;
                     tbody.innerHTML += fila;
@@ -62,6 +71,19 @@
             } catch (error) {
                 console.error(error);
                 alert("Error cargando pedidos");
+            }
+        }
+        async function cambiarEstado(id, nuevoEstado) {
+            try {
+                await fetch(`http://localhost:3000/api/ordenes/${id}`, {
+                    method: 'PATCH',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ estado: nuevoEstado })
+                });
+                // Opcional: mostrar un toast o recargar
+                console.log("Estado actualizado");
+            } catch (error) {
+                alert("Error al actualizar");
             }
         }
         cargarPedidos();

@@ -1,4 +1,4 @@
-import { pool } from '../utils/db.js';
+import { pool } from '../config/db.js';
 
 // 1. CREAR ORDEN (Para el Cliente - Checkout)
 export const createOrder = async (req, res) => {
@@ -66,4 +66,13 @@ export const getAllOrders = async (req, res) => {
         console.error("Error getAllOrders:", error);
         res.status(500).json({ message: 'Error al obtener órdenes' });
     }
+};
+
+export const updateOrder = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { estado } = req.body; // 'enviado', 'completado', etc.
+        await pool.query('UPDATE ordenes SET estado = ? WHERE id = ?', [estado, id]);
+        res.json({ message: 'Orden actualizada' });
+    } catch (error) { res.status(500).json({ message: 'Error' }); }
 };

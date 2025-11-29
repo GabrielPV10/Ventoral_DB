@@ -1,4 +1,4 @@
-import { pool } from '../utils/db.js';
+import { pool } from '../config/db.js';
 
 // 1. OBTENER TODOS LOS CLIENTES (GET)
 export const getClientes = async (req, res) => {
