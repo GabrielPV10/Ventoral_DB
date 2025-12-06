@@ -46,14 +46,14 @@ Si todo es correcto, verá en la terminal: Conectado a MySQL 🚀 API escuchando
 El sistema cuenta con detección de roles basada en el correo electrónico. Para probarlo, abra los archivos .html dentro de la carpeta frontend (se recomienda usar "Open with Live Server").
 
     Opción A: Entrar como Cliente (Tienda)
-Vaya al Login (frontend/login.html) o Registro (frontend/register.html).
+Vaya al Login (frontend/login.html) y debajo Registro (frontend/register.html).
 Regístrese con cualquier correo (ej: juan@correo.com).
 Al iniciar sesión, el sistema lo llevará a la Tienda (index.html) donde podrá ver productos, agregar al carrito y comprar.
 
     Opción B: Entrar como Administrador (Panel de Gestión)
 Para acceder a los CRUDs, debe registrarse con el correo maestro.
-Vaya a Registro (frontend/register.html).
-Cree una cuenta usando EXACTAMENTE este correo: admin@ventoral.com (La contraseña puede ser cualquiera).
+Vaya a Registro (login y debajo esta registro).
+Cree una cuenta usando EXACTAMENTE este correo: admin@ventoral.com (Los demas campos pueden ser cualquiera, pero obligatorio el correo mencionado).
 Al iniciar sesión con ese correo, el sistema lo redirigirá al Panel de Administración (admin.html).
 
 Desde ahí podrá gestionar:
