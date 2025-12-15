@@ -1,4 +1,4 @@
-const API_PRODUCTOS = 'http://localhost:3000/api/productos';
+const API_PRODUCTOS = '/api/productos';
 const productosContainer = document.getElementById('productosContainer');
 const userMenu = document.getElementById('userMenu');
 
@@ -59,6 +59,7 @@ function mostrarProductos(lista) {
         productosContainer.appendChild(card);
     });
 }
+
 function filtrarProductos(categoriaId) {
     if (categoriaId === 'todos') {
         mostrarProductos(todosLosProductos);
@@ -67,17 +68,8 @@ function filtrarProductos(categoriaId) {
         mostrarProductos(filtrados);
     }
 }
-function agregarAlCarrito(id) {
-    if (!usuarioLogueado) {
-        alert("Por favor inicia sesión para comprar.");
-        window.location.href = 'login.html';
-        return;
-    }
-    alert(`Producto ID ${id} agregado (Simulación)`);
-}
 
-cargarProductos();
-
+// FUNCION REAL (Conectada al Backend - ÚNICA VERSIÓN)
 async function agregarAlCarrito(productoId) {
     if (!usuarioLogueado) {
         alert("Por favor inicia sesión para comprar.");
@@ -86,7 +78,8 @@ async function agregarAlCarrito(productoId) {
     }
 
     try {
-        const res = await fetch('http://localhost:3000/api/carrito/agregar', {
+        // Ruta relativa correcta
+        const res = await fetch('/api/carrito/agregar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -113,16 +106,15 @@ async function actualizarContadorCarrito() {
     if (!usuarioLogueado) return;
 
     try {
-        const res = await fetch(`http://localhost:3000/api/carrito/${usuarioLogueado.id}`);
+        // Ruta relativa correcta
+        const res = await fetch(`/api/carrito/${usuarioLogueado.id}`);
         const items = await res.json();
         
         const totalItems = items.reduce((sum, item) => sum + item.cantidad, 0);
         
-        // SOLUCIÓN: Buscamos todos los botones y actualizamos el que sea del carrito
         const botones = document.querySelectorAll('.btn-login');
         
         botones.forEach(btn => {
-            // Si el botón tiene el icono 🛒 o dice "Carrito", lo actualizamos
             if(btn.innerText.includes('Carrito')) {
                 btn.innerText = `🛒 Carrito (${totalItems})`;
             }
@@ -132,4 +124,7 @@ async function actualizarContadorCarrito() {
         console.error("Error actualizando contador");
     }
 }
+
+// Iniciar carga
+cargarProductos();
 actualizarContadorCarrito();

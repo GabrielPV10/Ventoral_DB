@@ -16,7 +16,7 @@ let totalCalculado = 0;
 
 async function calcularTotal() {
     try {
-        const res = await fetch(`http://localhost:3000/api/carrito/${usuarioLogueado.id}`);
+        const res = await fetch(`/api/carrito/${usuarioLogueado.id}`);
         const items = await res.json();
         
         if(items.length === 0) {
@@ -57,7 +57,7 @@ form.addEventListener('submit', async (e) => {
     };
 
     try {
-        const res = await fetch('http://localhost:3000/api/ordenes', {
+        const res = await fetch('/api/ordenes', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(datosCompra)

@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/auth/register';
+const API_URL = '/api/auth/register';
 const form = document.getElementById('registerForm');
 const errorMsg = document.getElementById('errorMessage');
 

@@ -10,7 +10,7 @@ if (!usuarioLogueado) {
 
 async function cargarCarrito() {
     try {
-        const res = await fetch(`http://localhost:3000/api/carrito/${usuarioLogueado.id}`);
+        const res = await fetch(`/api/carrito/${usuarioLogueado.id}`);
         const items = await res.json();
 
         renderizarCarrito(items);
@@ -66,7 +66,7 @@ function renderizarCarrito(items) {
 async function eliminarItem(id) {
     if(!confirm("¿Eliminar este producto?")) return;
     
-    await fetch(`http://localhost:3000/api/carrito/item/${id}`, { method: 'DELETE' });
+    await fetch(`/api/carrito/item/${id}`, { method: 'DELETE' });
     cargarCarrito(); // Recargar tabla
     alert("Producto eliminado");
 }

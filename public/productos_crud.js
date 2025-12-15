@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/productos';
+const API_URL = '/api/productos';
 const form = document.getElementById('productoForm');
 const tableBody = document.getElementById('tablaProductos');
 

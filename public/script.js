@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/clientes';
+const API_URL = '/api/clientes';
 const form = document.getElementById('clienteForm');
 const tableBody = document.querySelector('#clientesTable tbody');
 
