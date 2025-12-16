@@ -1,63 +1,80 @@
 # Proyecto API Rest - Ventoral
-
-API REST y Aplicación Web para la gestión de la tienda Ventoral (E-commerce de Climatización), creada con Node.js, Express y MySQL.
+API REST y Aplicación Web para la gestión de la tienda **Ventoral** (E-commerce de Climatización).
+Desarrollado con arquitectura MVC utilizando **Node.js, Express y MySQL**.
 
 ## Requisitos Previos
+
 * **Node.js** (v18 o superior)
 * **MySQL Server** (v8.0 o superior)
-* **MySQL Workbench** (opcional, para visualizar la BD)
-* **VS Code** con la extensión "Live Server" (recomendado para el frontend)
+* **Git** (para clonar el repositorio)
+* **Terminal/Consola** (CMD, PowerShell o Bash)
 
-## 1. Instalación del Proyecto
+## 1. Instalación y Configuración (Vía Consola)
+Sigue estos pasos para desplegar el proyecto rápidamente usando la terminal.
+### Paso 1: Clonar y Dependencias
+Descarga el código y las librerías necesarias.
+# Clonar el repositorio
+git clone [https://github.com/GabrielPV10/Ventoral_DB.git](https://github.com/GabrielPV10/Ventoral_DB.git)
+# Entrar a la carpeta
+cd Ventoral_DB
+# Instalar dependencias
+npm install
+Paso 2: Base de Datos (Importación por Comandos)
+Puedes importar la base de datos directamente sin abrir programas externos.
+Opción A: Si tu MySQL usa el puerto estándar (3306)
+# Te pedirá tu contraseña de root al dar Enter
+mysql -u root -p
 
-1.  Clonar el repositorio:
-    git clone [https://github.com/GabrielPV10/Ventoral_DB.git](https://github.com/GabrielPV10/Ventoral_DB.git)
+Opción B: Si usas un puerto personalizado (ej. 3307)
+mysql -u root -p --port=3307
+Si el comando anterior no funciona en tu terminal (PowerShell), entra primero a MySQL:
+mysql -u root -p --port=3307
+source db/ventoral_db.sql
+exit
 
-2.  Entrar a la carpeta del proyecto e instalar las dependencias:
-    cd Ventoral_DB
-    npm install
-
-## 2. Configuración de la Base de Datos
-
-El proyecto incluye un script automatizado que crea la base de datos, las tablas, los datos de prueba (productos) y el usuario de conexión.
-
-1.  Abra **MySQL Workbench** y conéctese a su instancia local (usualmente como usuario `root`).
-2.  Abra el archivo SQL ubicado en: `db/ventoral_db.sql`.
-3.  Ejecute todo el script (Icono del rayo ⚡).
-
-## 3. Configuración de Variables de Entorno
-
-1.  En la raíz del proyecto, cree un nuevo archivo llamado `.env` (puede basarse en `.env.example` si existe).
-2.  Copie y pegue la siguiente configuración:
+Paso 3: Variables de Entorno (.env)
+Configura la conexión. Crea un archivo llamado .env en la raíz del proyecto y pega el siguiente contenido:
+Fragmento de código
 
 MYSQL_HOST=localhost
-MYSQL_PORT=3307
+MYSQL_PORT=3307      <-- ¡OJO! Cambia esto al puerto que use tu MySQL (3306 o 3307)
 MYSQL_USER=ventoral_user
 MYSQL_PASSWORD=pass1234
 MYSQL_DB=ventoral_db
-PORT=3000
-(Nota: Verifique si su MySQL corre en el puerto 3306 o 3307 y ajuste MYSQL_PORT si es necesario).
+PORT=3000            <-- Puerto donde abrirá la página web
 
-## 4. Ejecutar la Aplicación (Backend)
-Para iniciar el servidor en modo de desarrollo: npm run dev
-Si todo es correcto, verá en la terminal: Conectado a MySQL 🚀 API escuchando en http://localhost:3000
+2. Ejecutar la Aplicación
+Para iniciar el servidor en modo desarrollo (con reinicio automático):
+npm run dev
+Si todo es correcto, verás en la terminal:
+Plaintext
+Conectado a MySQL
+SERVIDOR INICIADO EN EL PUERTO 3000
 
-## 5. Guía de Uso (Frontend)
-El sistema cuenta con detección de roles basada en el correo electrónico. Para probarlo, abra los archivos .html dentro de la carpeta frontend (se recomienda usar "Open with Live Server").
+3. Guía de Uso
+Importante: No es necesario usar "Live Server". El propio backend sirve los archivos estáticos. Abre tu navegador en http://localhost:3000 (o el puerto que hayas configurado).
 
-    Opción A: Entrar como Cliente (Tienda)
-Vaya al Login (frontend/login.html) y debajo Registro (frontend/register.html).
-Regístrese con cualquier correo (ej: juan@correo.com).
-Al iniciar sesión, el sistema lo llevará a la Tienda (index.html) donde podrá ver productos, agregar al carrito y comprar.
+Opción A: Cliente (Tienda)
+Para ver el catálogo y realizar compras:
 
-    Opción B: Entrar como Administrador (Panel de Gestión)
-Para acceder a los CRUDs, debe registrarse con el correo maestro.
-Vaya a Registro (login y debajo esta registro).
-Cree una cuenta usando EXACTAMENTE este correo: admin@ventoral.com (Los demas campos pueden ser cualquiera, pero obligatorio el correo mencionado).
-Al iniciar sesión con ese correo, el sistema lo redirigirá al Panel de Administración (admin.html).
+Ve a Login: http://localhost:3000/login.html
+Haz clic en "¿No tienes cuenta? Regístrate aquí".
+Regístrate con cualquier correo (ej: juan@correo.com).
+Al entrar, podrás agregar productos al carrito y simular compras.
 
-Desde ahí podrá gestionar:
-    Productos: Crear, editar y eliminar.
-    Categorías: Administrar el catálogo.
-    Clientes: Ver usuarios registrados.
-    Pedidos: Ver historial de ventas.
+Opción B: Administrador (Panel de Gestión)
+Para gestionar productos y ver ventas, necesitas el rol de Admin.
+Ve al Registro: http://localhost:3000/register.html
+
+OBLIGATORIO: Debes registrarte usando el correo maestro:
+Correo: admin@ventoral.com
+Contraseña: (La que tú quieras)
+Inicia sesión con ese correo.
+El sistema detectará el rol y te redirigirá automáticamente al Panel Administrativo (admin.html).
+📂 Método Alternativo (Gráfico)
+Si prefieres usar herramientas visuales para la base de datos:
+Abre MySQL Workbench.
+Conéctate a tu servidor local.
+Ve a File > Open SQL Script y selecciona db/ventoral_db.sql.
+Ejecuta todo el script (Icono del rayo ⚡).
+Continúa desde el Paso 3 de la guía anterior.
